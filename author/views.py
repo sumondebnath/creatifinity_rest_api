@@ -41,7 +41,8 @@ class UserRegistrationViewSet(APIView):
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             print("uid ", uid)
 
-            confirm_link = f"http://127.0.0.1:8000/active/{uid}/{token}"
+            # confirm_link = f"http://127.0.0.1:8000/active/{uid}/{token}"
+            confirm_link = f"https://creatifinity-api.onrender.com/active/{uid}/{token}"
             email_subject = "Confirm Your Email"
             email_body = render_to_string("confirm_email.html", {"confirm_link":confirm_link})
             email = EmailMultiAlternatives(email_subject, "", to=[user.email])
