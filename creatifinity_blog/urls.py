@@ -18,9 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet
+
+router = DefaultRouter()
+
+router.register("user", UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", include(router.urls)),
     path("account/", include("author.urls")), 
     path("blog/", include("blog.urls")),
     path("category/", include("category.urls")),

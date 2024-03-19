@@ -17,6 +17,14 @@ class BlogViewSet(viewsets.ModelViewSet):
     pagination_class = BlogPagination
     search_fields = ["user__first_name", "blog__category", "blog__title"]
 
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     user_id = self.request.query_params.get('user_id')
+    #     print(user_id)
+    #     if user_id:
+    #         queryset = queryset.filter(user_id=user_id)
+    #     return queryset
+
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
