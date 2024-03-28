@@ -90,7 +90,18 @@ class UserLoginView(APIView):
     
 
 class UserLogoutView(APIView):
-    def get(self, request):
-        request.user.auth_token.delete()
-        logout(request)
-        return redirect("login")
+    # def get(self, request):
+    #     request.user.auth_token.delete()
+    #     logout(request)
+    #     return redirect("login")
+
+    def post(self, request):
+        try:
+            token_key = request.META.get("HTTP_AUTHORIZATION").split(" ")[1]
+            token = Token.objects.get(key = token_key)
+            token.delete()
+            return Response({"message":"Logout Successfully."})
+        except Token.DoesNotExist:
+            return Response({"error":"Invalid Token"})
+        except AttributeError:
+            return Response({'error': 'Token not provided'})
