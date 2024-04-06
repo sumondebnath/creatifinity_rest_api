@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from author.models import UserAccount, UserAddress
@@ -21,11 +21,24 @@ class UserAccountViewSet(viewsets.ModelViewSet):
     queryset = UserAccount.objects.all()
     serializer_class = UserAccountSerializers
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user_id = self.request.query_params.get("user_id")
+        if user_id:
+            queryset = queryset.filter(user_id=user_id)
+        return queryset
+
 
 class UserAddressViewSet(viewsets.ModelViewSet):
     queryset = UserAddress.objects.all()
     serializer_class = UserAddressSerializers
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user_id = self.request.query_params.get("user_id")
+        if user_id:
+            queryset = queryset.filter(user_id=user_id)
+        return queryset
 
 
 class UserRegistrationViewSet(APIView):

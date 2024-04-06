@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from category.models import Category
+from author.models import UserAccount
 from blog.constants import RATINGS
 
 # Create your models here.
 
 class Blog(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    # account = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
     title = models.CharField(max_length=500)
     image = models.ImageField(upload_to="blog/images/")

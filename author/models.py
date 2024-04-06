@@ -11,6 +11,9 @@ class UserAccount(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     bio = models.TextField()
 
+    def __str__(self):
+        return f"{self.user.username}"
+
 
 class UserAddress(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -18,3 +21,6 @@ class UserAddress(models.Model):
     city = models.CharField(max_length=120, null=True, blank=True)
     postal_code = models.IntegerField(null=True, blank=True)
     country = models.CharField(max_length=120, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}"

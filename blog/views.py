@@ -15,15 +15,16 @@ class BlogViewSet(viewsets.ModelViewSet):
     serializer_class = BlogSerializers
     filter_backends = [filters.SearchFilter]
     pagination_class = BlogPagination
-    search_fields = ["user__first_name", "blog__category", "blog__title"]
+    search_fields = ["user__username", "user__first_name", "user__last_name", "category__name", "title"]
 
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     user_id = self.request.query_params.get('user_id')
-    #     print(user_id)
-    #     if user_id:
-    #         queryset = queryset.filter(user_id=user_id)
-    #     return queryset
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # account_id = self.request.query_params.get('account_id')
+        user_id = self.request.query_params.get("user_id")
+        # print(account_id)
+        if user_id:
+            queryset = queryset.filter(user_id=user_id)
+        return queryset
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
