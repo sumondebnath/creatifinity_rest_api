@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from blog.serializers import BlogSerializers, ReviewSerializers
 from blog.models import Blog, Review
-from rest_framework import viewsets, filters, pagination
+from rest_framework import viewsets, filters, pagination, permissions
 
 # Create your views here.
 
@@ -30,3 +30,18 @@ class BlogViewSet(viewsets.ModelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializers
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        blog_id = self.request.query_params.get("blog_id")
+        if blog_id:
+            queryset = queryset.filter(blog_id=blog_id)
+        return queryset
+    
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     user_id = self.request.query_params.get("user_id")
+    #     if user_id:
+    #         queryset = queryset.filter(user_id=user_id)
+    #     return queryset

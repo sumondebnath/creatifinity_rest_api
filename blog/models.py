@@ -11,7 +11,7 @@ class Blog(models.Model):
     # account = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
     title = models.CharField(max_length=500)
-    image = models.ImageField(upload_to="blog/images/")
+    image = models.ImageField(upload_to="blog/images/", null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, permissions
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from author.models import UserAccount, UserAddress
@@ -20,6 +20,7 @@ from django.template.loader import render_to_string
 class UserAccountViewSet(viewsets.ModelViewSet):
     queryset = UserAccount.objects.all()
     serializer_class = UserAccountSerializers
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -32,6 +33,7 @@ class UserAccountViewSet(viewsets.ModelViewSet):
 class UserAddressViewSet(viewsets.ModelViewSet):
     queryset = UserAddress.objects.all()
     serializer_class = UserAddressSerializers
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         queryset = super().get_queryset()
