@@ -37,7 +37,8 @@ class UserRegistrationSerializers(serializers.ModelSerializer):
         
         account = User(username=username, first_name=first_name, last_name=last_name, email=email)
         account.set_password(password)
-        account.is_active = False
+        # account.is_active = False
+        account.is_active = True
         account.save()
         return account
     

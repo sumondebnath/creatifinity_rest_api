@@ -39,7 +39,7 @@ pexpect
 Pillow
 platformdirs
 protobuf
-psycopg2
+psycopg2-binary
 
 pycairo
 PyJWT

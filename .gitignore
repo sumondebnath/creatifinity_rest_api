@@ -7,7 +7,7 @@
 djEnv
 djEnv/
 .venv/
-MamarBank/.env/
 .env/
 .env
+.env*
 libraryManagementSystem/.env
