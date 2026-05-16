@@ -1,0 +1,19 @@
+```mermaid
+flowchart TD
+    Client["Client"] -->|HTTP Request| Router["Django Router (creatifinity_blog/urls)"]
+    Router -->|route| ViewSet["App ViewSet / Views"]
+    ViewSet --> Serializer["Serializer: validate/serialize"]
+    Serializer --> Model["Django Model / ORM"]
+    Model --> DB[("Database (SQLite/Postgres)")]
+
+    subgraph AuthFlow [Registration & Email Confirmation]
+      Client -->|POST /account/register/| RegView["UserRegistrationViewSet"]
+      RegView --> Serializer
+      RegView -->|send email| EmailService["Email (SMTP via .env)"]
+      EmailService -->|click link| ActiveView["Active view: uid/token"]
+      ActiveView --> Model
+    end
+
+    Router ---|media| Static["Media files served via settings.MEDIA_URL"]
+
+```

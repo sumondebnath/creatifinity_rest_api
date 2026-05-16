@@ -1,0 +1,58 @@
+```mermaid
+erDiagram
+    AUTHOR_USERACCOUNT {
+        Integer id PK
+        Integer user_id FK
+        String image
+        String gender
+        Date birth_date
+        Text bio
+    }
+
+    AUTHOR_USERADDRESS {
+        Integer id PK
+        Integer user_id FK
+        String street_address
+        String city
+        Integer postal_code
+        String country
+    }
+
+    AUTH_USER {
+        Integer id PK
+        String username
+        String first_name
+        String last_name
+        String email
+    }
+
+    CATEGORY_CATEGORY {
+        Integer id PK
+        String name
+        String slug
+    }
+
+    BLOG_BLOG {
+        Integer id PK
+        Integer user_id FK
+        String title
+        String image
+        DateTime created
+        Text body
+    }
+
+    BLOG_REVIEW {
+        Integer id PK
+        Integer user_id FK
+        Integer blog_id FK
+        String rating
+    }
+
+    AUTH_USER ||--o{ AUTHOR_USERACCOUNT : has
+    AUTH_USER ||--o{ AUTHOR_USERADDRESS : has
+    AUTH_USER ||--o{ BLOG_BLOG : authors
+    AUTH_USER ||--o{ BLOG_REVIEW : writes
+    BLOG_BLOG ||--o{ BLOG_REVIEW : has
+    BLOG_BLOG }o--|| CATEGORY_CATEGORY : "MANY_TO_MANY"
+
+```
