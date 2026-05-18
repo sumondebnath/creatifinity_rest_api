@@ -12,6 +12,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.conf import settings
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -59,8 +60,8 @@ class UserRegistrationView(APIView):
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
 
-            # confirm_link = f"https://creatifinity-api.onrender.com/account/active/{uid}/{token}"
-            confirm_link = f"http://127.0.0.1:8000/account/active/{uid}/{token}"
+            base_url = getattr(settings, "BASE_URL", "http://127.0.0.1:8000")
+            confirm_link = f"{base_url}/account/active/{uid}/{token}"
             email_subject = "Confirm Your Email"
             email_body = render_to_string("confirm_email.html", {"confirm_link": confirm_link})
             email_plain_text = f"Click the link to confirm your email: {confirm_link}"

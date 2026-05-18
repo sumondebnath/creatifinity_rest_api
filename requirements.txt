@@ -1,15 +1,17 @@
-Django>=5.0.1
-djangorestframework
-django-environ
-django-cors-headers
-django-filter
-Pillow
-python-dateutil
-pytz
-djangorestframework-simplejwt
-
-# Optional (only if you use PostgreSQL in production)
-# psycopg2-binary
-
-# Developer / build tools should go into dev-requirements.txt
-# e.g. virtualenv, pylint, black
+asgiref==3.11.1
+Django==6.0.5
+django-cors-headers==4.9.0
+django-environ==0.13.0
+django-filter==25.2
+djangorestframework==3.17.1
+djangorestframework_simplejwt==5.5.1
+pillow==12.2.0
+psycopg2-binary==2.9.12
+PyJWT==2.12.1
+python-dateutil==2.9.0.post0
+pytz==2026.2
+setuptools==82.0.1
+six==1.17.0
+sqlparse==0.5.5
+wheel==0.47.0
+whitenoise==6.12.0

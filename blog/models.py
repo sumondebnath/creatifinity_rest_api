@@ -22,9 +22,12 @@ class Blog(models.Model):
         ordering = ['-created']
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-    rating = models.CharField(max_length=10, choices=RATINGS)
+    rating = models.IntegerField(choices=RATINGS)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} {self.rating}"
+
+    class Meta:
+        unique_together = [("user", "blog")]

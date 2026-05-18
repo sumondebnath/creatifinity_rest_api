@@ -12,3 +12,6 @@ class ContactUsViewSet(viewsets.ModelViewSet):
         if self.action == "create":
             return [permissions.AllowAny()]
         return [permissions.IsAdminUser()]
+
+    def perform_create(self, serializer):
+        serializer.save(status="new")

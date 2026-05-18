@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from blog.serializers import BlogSerializers, ReviewSerializers
 from blog.models import Blog, Review
 from rest_framework import viewsets, filters, pagination, permissions
