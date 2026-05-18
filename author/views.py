@@ -12,6 +12,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 
@@ -88,13 +90,29 @@ def Active(request, uid64, token):
     return redirect('/account/register/')
 
 
-def LoginInfo(request):
-    """Simple informational page informing user how to login (token endpoint)."""
-    msg = (
-        "Your account has been activated. To obtain JWT tokens, POST your username and password "
-        "to /account/token/ (JSON body: {\"username\":..., \"password\":...})."
-    )
-    return HttpResponse(msg)
-    
+class LoginView(TokenObtainPairView):
+    """Handles JWT login at /account/login/."""
 
-"""Login and logout are handled via JWT token endpoints."""
+    def get(self, request, *args, **kwargs):
+        msg = (
+            'Your account has been activated. To obtain JWT tokens, POST your username and password '
+            'to /account/login/ (JSON body: {"username":..., "password":...}).'
+        )
+        return HttpResponse(msg)
+
+
+class LogoutView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        refresh_token = request.data.get('refresh')
+        if not refresh_token:
+            return Response({"refresh": "This field is required."}, status=400)
+
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+        except Exception:
+            return Response({"detail": "Invalid or expired refresh token."}, status=400)
+
+        return Response({"detail": "Logout successful."})

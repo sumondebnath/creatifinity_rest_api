@@ -3,14 +3,16 @@
 Base URL: `/` (router exposes registered viewsets)
 
 Authentication
-- Token auth: include header `Authorization: Token <token>` for authenticated endpoints.
+- JWT auth: include header `Authorization: Bearer <access_token>` for authenticated endpoints.
 
 Author / Account
 - `GET /account/account/` — list user accounts
 - `GET /account/account/?user_id=<id>` — filter by user
 - `POST /account/register/` — register (sends confirmation email)
-- `POST /account/login/` — login (returns token and user_id)
-- `POST /account/logout/` — logout (delete token)
+- `GET /account/active/<uid>/<token>/` — activate account email
+- `POST /account/login/` — login (returns `access` and `refresh` tokens)
+- `POST /account/token/refresh/` — refresh access token
+- `POST /account/logout/` — logout (blacklist refresh token)
 
 Blog
 - `GET /blog/list/` — list blogs (searchable by user and category)

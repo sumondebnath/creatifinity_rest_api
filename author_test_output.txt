@@ -1,0 +1,15 @@
+returncode=0
+
+STDOUT:
+Found 1 test(s).
+System check identified no issues (0 silenced).
+
+
+STDERR:
+Creating test database for alias 'default'...
+.
+----------------------------------------------------------------------
+Ran 1 test in 1.223s
+
+OK
+Destroying test database for alias 'default'...
