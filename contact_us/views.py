@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from contact_us.models import ContactUs
 from contact_us.serializers import ContactUsSerializers
 
@@ -8,3 +7,8 @@ from contact_us.serializers import ContactUsSerializers
 class ContactUsViewSet(viewsets.ModelViewSet):
     queryset = ContactUs.objects.all()
     serializer_class = ContactUsSerializers
+
+    def get_permissions(self):
+        if self.action == "create":
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminUser()]

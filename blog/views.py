@@ -2,12 +2,13 @@ from django.shortcuts import render
 from blog.serializers import BlogSerializers, ReviewSerializers
 from blog.models import Blog, Review
 from rest_framework import viewsets, filters, pagination, permissions
+from author.permissions import IsOwnerOrReadOnly
 
 # Create your views here.
 
 class BlogPagination(pagination.PageNumberPagination):
     page_size = 50
-    page_size_query_param = page_size
+    page_size_query_param = 'page_size'
     max_page_size = 100
 
 class BlogViewSet(viewsets.ModelViewSet):
@@ -15,22 +16,24 @@ class BlogViewSet(viewsets.ModelViewSet):
     serializer_class = BlogSerializers
     filter_backends = [filters.SearchFilter]
     pagination_class = BlogPagination
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     search_fields = ["user__username", "user__first_name", "user__last_name", "category__name", "title"]
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        # account_id = self.request.query_params.get('account_id')
         user_id = self.request.query_params.get("user_id")
-        # print(account_id)
         if user_id:
             queryset = queryset.filter(user_id=user_id)
         return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializers
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -38,10 +41,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
         if blog_id:
             queryset = queryset.filter(blog_id=blog_id)
         return queryset
-    
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     user_id = self.request.query_params.get("user_id")
-    #     if user_id:
-    #         queryset = queryset.filter(user_id=user_id)
-    #     return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

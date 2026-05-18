@@ -5,4 +5,5 @@ from contact_us.models import ContactUs
 class ContactUsSerializers(serializers.ModelSerializer):
     class Meta:
         model = ContactUs
-        fields = "__all__"
+        fields = ["id", "name", "email", "body", "status", "created"]
+        read_only_fields = ["created"]
