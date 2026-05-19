@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "creatifinity_blog/wsgi.py", "use": "@vercel/python" }
+  ],
+  "buildCommand": "python manage.py collectstatic --noinput",
+  "routes": [
+    { "src": "/static/(.*)", "dest": "/static/$1" },
+    { "src": "/media/(.*)", "dest": "/media/$1" },
+    { "src": "/(.*)", "dest": "creatifinity_blog/wsgi.py" }
+  ]
+}
