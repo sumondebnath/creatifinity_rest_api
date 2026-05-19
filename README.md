@@ -3,6 +3,7 @@
 A Django REST API for managing users, blog posts, categories, reviews, and contact messages.
 
 Features
+
 - Token authentication (DRF Token)
 - User registration with email confirmation
 - Blog CRUD with category tagging and reviews
@@ -42,6 +43,7 @@ python manage.py runserver
 ```
 
 API endpoints (overview)
+
 - `/` — Root router listing users (`user`) and other registered viewsets
 - `/account/` — Account, registration, login, logout endpoints
 - `/blog/` — Blog list (`list/`) and reviews (`review/`)
@@ -51,12 +53,14 @@ API endpoints (overview)
 See `docs/` for full architecture, ER diagram, flowcharts, and API reference.
 
 Deployment
+
 - Use a production-ready database (Postgres) and configure `DATABASES` in `creatifinity_blog/settings.py`.
 - Set `DEBUG=False` and configure allowed hosts and email credentials via `.env`.
 - For Vercel deployment, add environment variables in the Vercel dashboard or with the Vercel CLI.
 - Run `python manage.py collectstatic --noinput` during build so WhiteNoise can serve static assets.
 
 Vercel deployment steps
+
 1. Install the Vercel CLI locally: `npm install -g vercel`
 2. Initialize the project in the repo root: `vercel`
 3. Set env vars in Vercel or with CLI:
@@ -153,4 +157,3 @@ flowchart TD
 
 	Router ---|media| Static["Media files served via settings.MEDIA_URL"]
 ```
-
