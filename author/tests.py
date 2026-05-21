@@ -19,7 +19,7 @@ class AuthorAuthTests(TestCase):
 
     def test_registration_activation_login_refresh_logout_jwt(self):
         response = self.client.post('/account/register/', self.user_data, format='json')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         self.assertEqual(len(mail.outbox), 1)
 
         body = mail.outbox[0].body

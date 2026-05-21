@@ -11,3 +11,9 @@ djEnv/
 .env
 .env*
 libraryManagementSystem/.env
+
+# Test output files
+test_results.txt
+test_output.txt
+*_test_output.txt
+*.log

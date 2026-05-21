@@ -40,4 +40,4 @@ jobs:
           EMAIL: ci@example.com
           EMAIL_PASSWORD: ci-test-password
         run: |
-          python manage.py test
+          python manage.py test --verbosity=2
