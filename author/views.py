@@ -60,7 +60,7 @@ class UserRegistrationView(APIView):
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
 
-            base_url = getattr(settings, "BASE_URL", "http://127.0.0.1:8000")
+            base_url = getattr(settings, "BASE_URL", "https://creatifinity-rest-api.vercel.app/")
             confirm_link = f"{base_url}/account/active/{uid}/{token}"
             email_subject = "Confirm Your Email"
             email_body = render_to_string("confirm_email.html", {"confirm_link": confirm_link})
