@@ -85,7 +85,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'creatifinity_blog.wsgi.application'
+WSGI_APPLICATION = 'creatifinity_blog.wsgi.app'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
