@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "builds": [{ "src": "creatifinity_blog/wsgi.py", "use": "@vercel/python" }],
+  "builds": [
+    {
+      "src": "creatifinity_blog/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "runtime": "python3.10" }
+    }
+  ],
   "buildCommand": "python manage.py collectstatic --noinput",
-  "routes": [
-    { "src": "/static/(.*)", "dest": "/static/$1" },
-    { "src": "/media/(.*)", "dest": "/media/$1" },
-    { "src": "/(.*)", "dest": "creatifinity_blog/wsgi.py" }
-  ]
+  "routes": [{ "src": "/(.*)", "dest": "creatifinity_blog/wsgi.py" }]
 }
