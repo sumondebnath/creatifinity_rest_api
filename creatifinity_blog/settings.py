@@ -171,7 +171,7 @@ BASE_URL = env('BASE_URL', default='http://127.0.0.1:8000')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT = env.int('EMAIL_PORT', default=587)
-EMAIL_HOST_USER = env('EMAIL')
+EMAIL_HOST_USER = env('EMAIL', default='noreply@example.com')
 EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD', default='')
 EMAIL_USE_TLS = True
 
