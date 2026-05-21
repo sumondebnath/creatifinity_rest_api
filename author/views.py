@@ -69,7 +69,7 @@ class UserRegistrationView(APIView):
             email.attach_alternative(email_body, "text/html")
             try:
                 email.send()
-                return Response({"detail": "Check your email for confirmation."})
+                return Response({"detail": "Check your email for confirmation."}, status=201)
             except Exception as e:
                 return Response({"detail": f"Failed to send confirmation email: {str(e)}"}, status=500)
         return Response(serializer.errors, status=400)
